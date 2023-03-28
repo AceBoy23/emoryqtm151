@@ -38,6 +38,7 @@ Create table from codebook/dictionary
 -- We start by deleting the old table
 -- SQL does not allow you to create a table if one already exists
 DROP TABLE IF EXISTS us_congress_members;
+DROP TABLE IF EXISTS drivers;
 
 -- Note in SQL the codebook is also called a "dictionary"
 -- The option PRIMARY KEY indicates that this is the unique identifier
@@ -83,9 +84,18 @@ Try it yourself!
 
 - Create a new table for "bills_subjects"
 -- SQLBook: Code
-# Write your own code
+-- Write your own code
+DROP TABLE IF EXISTS bills_subjects;
 
-
+CREATE TABLE bills_subjects (
+    "Congress"  int NOT NULL,
+    bill_number int ,
+    bill_type   varchar(30),
+    action      varchar(1000),
+    main_action varchar(50),
+    object      varchar(30),
+    member_id   int
+);
 
 -- SQLBook: Markup
 # <span style="color:darkblue"> II. Import CSV into SQL </span>
@@ -115,6 +125,10 @@ COPY us_congress_members
 FROM 'D:\GitHub\qtm151spring2023\Lecture 18\data\us_congress_members.csv' ```
 WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
 ```
+-- SQLBook: Code
+COPY us_congress_members
+FROM '/Users/aarinbindlish/Desktop/_EMORYYEAR1_/QTM151/qtm151lecture/Lecture 18/data/us_congress_members.csv' ```
+WITH(DELIMETER ',', FORMAT csv, HEADER MATCH);
 -- SQLBook: Code
 -- The argument associaated with COPY is the dataset in our server
 -- The argument associaated with FROM is a filepath name
