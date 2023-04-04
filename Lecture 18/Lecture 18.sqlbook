@@ -35,6 +35,7 @@ United States Congress dataset
 
 Create table from codebook/dictionary
 -- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
 -- We start by deleting the old table
 -- SQL does not allow you to create a table if one already exists
 DROP TABLE IF EXISTS us_congress_members;
@@ -52,6 +53,7 @@ CREATE TABLE us_congress_members (
         chamber      varchar(30)
 );
 -- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
 -- (i) The NOT NULL option is a special restrition saying
 --     that you are not allowed to enter missing data for this column
 --     SQL includes a lot of data quality checks like this
@@ -60,6 +62,8 @@ CREATE TABLE us_congress_members (
 -- (iii) Include any column names with upper case in double quotations "..."
 
 DROP TABLE IF EXISTS bills_actions;
+
+
 
 CREATE TABLE bills_actions (
         "Congress"  int NOT NULL,
@@ -84,6 +88,7 @@ Try it yourself!
 
 - Create a new table for "bills_subjects"
 -- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
 -- Write your own code
 DROP TABLE IF EXISTS bills_subjects;
 
@@ -126,10 +131,10 @@ FROM 'D:\GitHub\qtm151spring2023\Lecture 18\data\us_congress_members.csv' ```
 WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
 ```
 -- SQLBook: Code
-COPY us_congress_members
-FROM '/Users/aarinbindlish/Desktop/_EMORYYEAR1_/QTM151/qtm151lecture/Lecture 18/data/us_congress_members.csv' ```
-WITH(DELIMETER ',', FORMAT csv, HEADER MATCH);
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
+COPY us_congress_members FROM '/private/tmp/data/us_congress_members.csv' WITH(DELIMITER ',', FORMAT csv, HEADER MATCH);
 -- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
 -- The argument associaated with COPY is the dataset in our server
 -- The argument associaated with FROM is a filepath name
 -- There are three options specified in WITH:
@@ -142,6 +147,7 @@ WITH(DELIMETER ',', FORMAT csv, HEADER MATCH);
 
 Interpreting Error Messages:
 -- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
 -- NOTE 1: Sometimes HEADER MATCH will give an error if the 
 -- 'CSV' file contains columns that are out of order. If this happens
 --  either edit the order of "CREATE TABLE" above
@@ -163,7 +169,8 @@ Try it yourself!
 SELECT * FROM us_congress_members
 ```
 -- SQLBook: Code
-# Write your own code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
+-- Write your own code
 -- Note in the instructor's computer this is:
 -- You just have to change the FROM argument
 --
@@ -173,7 +180,7 @@ SELECT * FROM us_congress_members
 
 
 
-
+SELECT * FROM us_congress_members;
 
 -- SQLBook: Markup
 <font size = "5">
@@ -187,6 +194,7 @@ Try it yourself!
 SELECT * FROM bills_actions
 ```
 -- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
 -- Write your own code
 -- Note in the instructor's computer this is:
 -- You just have to change the FROM argument
@@ -195,6 +203,12 @@ SELECT * FROM bills_actions
 -- FROM 'D:\GitHub\qtm151spring2023\Lecture 18\data\bills_actions.csv'
 -- WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
 
+COPY bills_actions FROM '/private/tmp/data/bills_actions.csv' WITH (DELIMITER ',', FORMAT csv, HEADER MATCH)
+
+-- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
+SELECT * FROM bills_actions
+-- SQLBook: Markup
 
 -- SQLBook: Markup
 <font size = "5">
@@ -220,6 +234,7 @@ Import the data before proceeding!
 
 Count unique rows
 -- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
 -- COUNT(DISTINCT ) computes the number of unique rows
 -- "AS" is the alias or name of the statistic
 
@@ -230,6 +245,7 @@ FROM us_congress_members
 <font size = "5">
 Display unique rows
 -- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
 SELECT party_name       
 FROM us_congress_members
 GROUP BY party_name
@@ -238,6 +254,7 @@ GROUP BY party_name
 
 Count members of group
 -- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
 SELECT party_name,       
        COUNT(*) AS num_members       
 FROM us_congress_members
@@ -247,6 +264,7 @@ GROUP BY party_name;
 
 Merge Databases
 -- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
 -- FROM indicates the primary dataset
 -- LEFT JOIN indicates the secondary dataset for merging
 -- ON ... = ... is the matching column
@@ -269,6 +287,7 @@ Try it yourself!
 
 - Count the unique number of members by 'chamber'
 -- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
 -- Write your own code
 
 

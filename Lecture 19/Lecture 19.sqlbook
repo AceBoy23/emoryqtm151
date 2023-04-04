@@ -88,6 +88,29 @@ The quiz will use the Formula 1 dataset
 with column names and data types
 - You will need to use the SQL command ``` CREATE TABLE ```
 
+-- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
+DROP TABLE formulaone;
+
+CREATE TABLE formulaone (
+        "raceId"    int PRIMARY KEY,
+        year    int,
+        round    int,
+        "circuitId" int,
+        name        varchar,
+        date   varchar(30),
+        time      varchar(30),
+        url varchar,
+        fp1_date  varchar(30),
+        fp1_time  varchar(30),
+        fp2_date  varchar(30),
+        fp2_time  varchar(30),
+        fp3_date  varchar(30),
+        fp3_time  varchar(30),
+        quali_date  varchar(30),
+        quali_time  varchar(30),
+        sprint_date  varchar(30),
+        sprint_time  varchar(30));
 -- SQLBook: Markup
 
 <font size = "5">
@@ -101,6 +124,9 @@ from ".csv" files using the command <br>
 - Display the dataset using ``` SELECT * FROM .... ```
 - See Lecture 18 for more details
 
+-- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
+COPY formulaone FROM '/private/tmp/races.csv' WITH(DELIMITER ',', FORMAT csv, HEADER MATCH);
 -- SQLBook: Markup
 <font size = "5">
 
@@ -108,6 +134,11 @@ from ".csv" files using the command <br>
 
 - Subset one of the above datasets using ``` WHERE ```
 - Then sort the datasets in ascending or descending order 
+-- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
+SELECT * FROM formulaone
+WHERE (year = 2009) OR (name = 'Australian Grand Prix')
+ORDER BY "circuitId" ASC;
 -- SQLBook: Markup
 <font size = "5">
 
@@ -120,6 +151,16 @@ from ".csv" files using the command <br>
 
 
 HINT: See the end of lectures 17
+-- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
+SELECT name,
+       SUM(year) AS sum_year,
+       AVG(year) AS mean_year,
+       MIN(year) AS min_year,
+       MAX(year) AS max_year, 
+       COUNT(year) AS count_year
+FROM formulaone
+GROUP BY name;
 -- SQLBook: Markup
 <font size = "5">
 
@@ -129,6 +170,13 @@ HINT: See the end of lectures 17
 - Then sort using ``` ORDER BY ```
 
 HINT: See the end of lectures 17 and 18
+-- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
+SELECT name,       
+       COUNT(*) AS year       
+FROM formulaone
+GROUP BY name
+ORDER BY name ASC;
 -- SQLBook: Markup
 <font size = "5">
 
@@ -136,3 +184,11 @@ HINT: See the end of lectures 17 and 18
 
 - Compute an aggregate statistict using ```GROUP BY```
 - Subset one of the above datasets using ``` HAVING ```
+-- SQLBook: Code
+-- Active: 1679854758882@@127.0.0.1@5432@postgres
+SELECT name,
+       SUM(year) AS sum_year
+FROM formulaone
+WHERE name = 'Australian Grand Prix'
+GROUP BY "raceId"
+HAVING SUM(year) > 50;
